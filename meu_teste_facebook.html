@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Teste API Facebook</title>
+</head>
+<body>
+  <h1>Consulta com Token de Acesso (Conta de Teste)</h1>
+
+  <label>Token de acesso:</label><br>
+  <input type="text" id="token" style="width: 500px;" placeholder="https://m.facebook.com/v23.0/dialog/oauth?response_type=token&display=popup&client_id=1309702847497831&redirect_uri=https%3A%2F%2Fdevelopers.facebook.com%2Ftools%2Fexplorer%2Fcallback&auth_type=rerequest&scope=user_payment_tokens%2Cemail%2Cpublic_profile&ret=login&fbapp_pres=0&logger_id=4c18fb2c-93ce-46fe-aa1c-0d9442bea48c&tp=unspecified&deoia=1">
+  <br><br>
+  <button onclick="buscarDados()">Buscar dados do usuário</button>
+
+  <h2>Resultado:</h2>
+  <pre id="resultado"></pre>
+
+  <script>
+    function buscarDados() {
+      const token = document.getElementById('token').value.trim();
+      if (!token) {
+        alert("Por favor, cole um token válido.");
+        return;
+      }
+
+      fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`)
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById('resultado').textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(err => {
+          document.getElementById('resultado').textContent = "Erro: " + err;
+        });
+    }
+  </script>
+</body>
+</html>
