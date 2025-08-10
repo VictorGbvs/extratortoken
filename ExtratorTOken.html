@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extrator de Token</title>
+</head>
+<body>
+  <h2>Cole a URL recebida após login:</h2>
+  <input type="text" id="urlInput" style="width: 400px;" />
+  <button onclick="extrairToken()">Extrair Token</button>
+  <p id="resultado"></p>
+
+  <script>
+    function extrairToken() {
+      const url = document.getElementById("urlInput").value;
+      const match = url.match(/access_token=([^&]+)/);
+      if (match) {
+        document.getElementById("resultado").innerText = "✅ Token extraído:\n" + match[1];
+      } else {
+        document.getElementById("resultado").innerText = "⚠️ Token não encontrado na URL.";
+      }
+    }
+  </script>
+</body>
+</html>
